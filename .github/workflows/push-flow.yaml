@@ -11,9 +11,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-   build-and-test-on-pr:
+  docker:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
