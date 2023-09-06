@@ -24,4 +24,4 @@ jobs:
         run: |
           echo "Starting the code build"
           sleep 10
-          echo "Finish the code build"
+          echo "Finish --- the code build"
