@@ -21,16 +21,16 @@ jobs:
 #       new_version: ${{ steps.semantic.outputs.version }}
 
     steps:
-      - name: Checkout
+      - name: PR Checkout
         uses: actions/checkout@v3
 
-      - name: "Show new version" 
+      - name: "PR Show new version" 
         run: |
           echo "Starting Decide version output"
-          echo ${{ steps.semantic.outputs.version }} 
+          echo $steps.semantic.outputs.version
           echo "Finish --- Decide version output"
 
-      - name: "Calculate the next semver"
+      - name: "PR Calculate the next semver"
         id: semantic
         uses: zwaldowski/semver-release-action@v3
         with:
@@ -40,17 +40,16 @@ jobs:
           per_branch: true
           dry_run: true
 
-      - name: "Lint Dockerfile"
+      - name: "PR Lint Dockerfile"
         uses: hadolint/hadolint-action@v1.6.0
         with:
           dockerfile: Dockerfile
 
 # Adding sleep time to keep one running and trigger 2nd to check concurrency
-      - name: Build and code sim
+      - name: PR Build and code sim
         run: |
           echo "Starting the code build"
           sleep 30
           echo "Finish --- the code build"
 
      
-   # trigger
