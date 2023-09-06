@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       
 # Adding sleep time to keep one running and trigger 2nd to check concurrency
       - name: Build and code sim
