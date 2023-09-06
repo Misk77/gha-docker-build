@@ -1,8 +1,7 @@
 name: "PR nginx hello"
 
 on:
-  pull_request:
-  push:
+  pull_request: 
     branches:
       - master
 
@@ -14,14 +13,44 @@ concurrency:
 jobs:
    build-and-test-on-pr:
     runs-on: ubuntu-latest
+    
+   semver:
+    name: "Decide version"
+    runs-on: ubuntu-20.04
+    outputs:
+      new_version: ${{ steps.semantic.outputs.version }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
+
+      - name: "Show new version" 
+        run: |
+          echo "Starting Decide version output"
+          echo ${{ steps.semantic.outputs.version }} 
+          echo "Finish --- Decide version output"
+
+      - name: "Calculate the next semver"
+        id: semantic
+        uses: zwaldowski/semver-release-action@v3
+        with:
+          bump: minor
+          prefix: "${{ inputs.custom_branch }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          per_branch: true
+          dry_run: true
+
+      - name: "Lint Dockerfile"
+        uses: hadolint/hadolint-action@v1.6.0
+        with:
+          dockerfile: Dockerfile
+
 # Adding sleep time to keep one running and trigger 2nd to check concurrency
       - name: Build and code sim
         run: |
           echo "Starting the code build"
           sleep 30
           echo "Finish --- the code build"
+
+     
+   
