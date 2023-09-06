@@ -14,11 +14,11 @@ jobs:
    build-and-test-on-pr:
     runs-on: ubuntu-latest
     
-#    semver:
-#     name: "Decide version"
-#     runs-on: ubuntu-20.04
-#     outputs:
-#       new_version: ${{ steps.semantic.outputs.version }}
+   semver:
+    name: "Decide version"
+    runs-on: ubuntu-20.04
+    outputs:
+      new_version: ${{ steps.semantic.outputs.version }}
 
     steps:
       - name: Checkout
